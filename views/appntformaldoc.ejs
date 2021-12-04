@@ -1,0 +1,118 @@
+<%- include('partials/header') %>
+<!-- <div class="box"> -->
+
+<h3 class="centrtxt a6" style="
+    margin-bottom: 0px; height : 3rem; padding-top:11px;">Appointment ID = <%=appnt_id%></h3>
+<div class="row">
+
+<div class="col-lg-6 centrtxt a1 ">
+  <h3 style="color:#ff9f2e; text-decoration: underline;">Symptoms</h3>
+<%  newListItems2.forEach(function(item){ %>
+
+
+    <div class="item">
+
+      <p class = " fntclr"><%=item.name%></p>
+    </div>
+
+
+<%  }) %>
+
+
+
+
+  </div>
+  <div class="col-lg-6 centrtxt a2">
+<h3 style="color:#ff9f2e;text-decoration: underline;">Keep This Updated!</h3>
+  <!-- weight -->
+    <div class="item">
+
+      <p class="pehla fntclr">Weight : <%=weight%></p>
+    </div>
+    <form class="item" action="/<%=appnt_id%>/weight/dr" method="post">
+      <input type="text" name="updateweight" placeholder="Weight" autocomplete="off" class="dusra">
+      <button type="submit" name="weight" value=" <%=appnt_id%> " class="btn btn-outline-primary ">Update Weight</button>
+    </form>
+    <!-- height -->
+    <div class="item">
+
+      <p class="pehla fntclr">Height : <%=height%></p>
+    </div>
+    <form class="item" action="/<%=appnt_id%>/height/dr" method="post">
+      <input type="text" name="updateheight" placeholder="Height" autocomplete="off" class="dusra">
+      <button type="submit" name="height" value=" <%=appnt_id%> " class="btn btn-outline-primary ">Update Height</button>
+    </form>
+    <!-- bloodpressure -->
+    <div class="item">
+
+      <p class="pehla fntclr">BloodPressure : <%=bloodpressure%></p>
+    </div>
+    <form class="item" action="/<%=appnt_id%>/bloodpressure/dr" method="post">
+      <input type="text" name="updatebloodpressure" placeholder="Bloodpressure" autocomplete="off" class="dusra">
+      <button type="submit" name="bloodpressure" value=" <%=appnt_id%> " class="btn btn-outline-primary ">Update BloodPressure</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- //image uploading -->
+<div class="row">
+  <div class="col-lg-6 centrtxt a3">
+<h3 style="color:#ff9f2e;text-decoration: underline;">Patient's Test Reports</h3>
+
+
+	<!-- <hr> -->
+<form class="" action="/<%=appnt_id%>/renderimg" method="post">
+  <button type="submit" name="button" class="btn btn-outline-primary"
+    style="
+    margin-top: 48px;"
+>Click Here For The Docs</button>
+</form>
+</div>
+<div class="col-lg-6 centrtxt a4">
+  <h3 style="color:#ff9f2e;text-decoration: underline;">Info To Patient</h3>
+
+<div class="item">
+  <p class="fntclr"><%=vidcall%></p>
+</div>
+<form class="item" action="/<%=appnt_id%>/vidcall/dr" method="post">
+  <input type="text" name="vidcall" placeholder="vidcall" autocomplete="off">
+  <button type="submit" name="vidcall1" value=" <%=appnt_id%> " class="btn btn-outline-primary" style="
+    margin-top: 12px;
+    margin-bottom: 15px;">Updates for vidcall</button>
+</form>
+<a href="/vid" target="_blank" class="list-group-item list-group-item-action list-group-item-primary centrtxt ">Join Video call</a>
+</div>
+
+</div>
+<div class="prescription centrtxt a5">
+
+
+<h3 style="color:#ff9f2e;text-decoration: underline;">Prescription</h3>
+<%  newListItems4.forEach(function(item){ %>
+
+  <form action="/<%=appnt_id%>/dr/delete" method="post">
+    <div class="item">
+      <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+      <p class="fntclr"><%=item.name%></p>
+    </div>
+    <input type="hidden" name="listName" value="<%= appnt_id %>"></input>
+  </form>
+<%  }) %>
+
+
+    <form class="item" action="/<%=appnt_id%>/dr/add" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+      <button type="submit" name="appntid" value="<%= appnt_id %>" class=" btn btn-outline-primary">+</button>
+    </form>
+</div>
+
+<!-- <div class="item">
+
+  <p><%=vidcall%></p>
+</div>
+<a href="/vid" target="_blank">Join Video call</a> -->
+
+<!-- </div> -->
+
+<%- include('partials/footer') %>

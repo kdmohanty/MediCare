@@ -1,12 +1,16 @@
 <%- include('partials/header') %>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    <i class="fas fa-key fa-6x"></i>
-    <h1 class="display-3">Appointments!</h1>
+<div class="appntbg" style="
+    height: 489px;" >
+
+<div class="box" id="heading">
+
+    <h1 class="centrtxt clra">Appointments!</h1>
+  </div>
+
     <!-- <p class="secret-text">Jack Bauer is my hero.</p> -->
     <hr>
-    <div class="box">
+    <div class="box dwidth">
 
 
     <%  newListItems1.forEach(function(item){ %>
@@ -14,11 +18,18 @@
 
         <div class="item">
 
-          <p><%=item.emailpt%></p>
+          <!-- <p><%=item.emailpt%></p>
+          <a href="/<%=item._id%>/dr">Open</a> -->
+          <a href="/<%=item._id%>/dr" class="list-group-item list-group-item-action list-group-item-light centrtxt tranparnt" style="color:
+     #3498DB"><%=item.emailpt%></a>
+
         </div>
 
 
     <%  }) %>
+  </div>
+</div>
+
     <!-- <form class="" action="/secrets" method="post">
       <label for="">City</label>
       <input type="text" name="cityloc" value="">
@@ -26,7 +37,9 @@
     </form> -->
     <!-- <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
     <a class="btn btn-dark btn-lg" href="/submit" role="button">Submit a Secret</a> -->
-  </div>
-</div>
+
+
+
+
 
 <%- include('partials/footer') %>

@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<div class="appntbg" style="
+    height: 489px;" >
+
+<div class="box" id="heading">
+  <h1 class = "centrtxt clra"> <%= listTitle %> </h1>
+</div>
+
+<div class="box dwidth">
+
+
+<%  newListItems.forEach(function(item){ %>
+
+
+    <div class="item">
+
+      <!-- <p><%=item.emaildc%></p><a href="#" class="list-group-item list-group-item-action list-group-item-info">A simple info list group item</a> -->
+      <a href="/<%=item._id%>" class="list-group-item list-group-item-action list-group-item-light centrtxt tranparnt" style="color:
+ #3498DB"><%=item.emaildc%></a>
+    </div>
+
+
+<%  }) %>
+
+</div>
+</div>
+
+
+
+
+
+
+<%- include('partials/footer') %>
