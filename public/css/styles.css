@@ -390,3 +390,10 @@ a:hover {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+.graphctr{margin: auto;}
+.logout {
+  position: absolute;
+  z-index: 3;
+  top: 13px;
+  right: 13px;
+}                                    }

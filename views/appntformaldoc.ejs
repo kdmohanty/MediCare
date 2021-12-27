@@ -106,6 +106,28 @@
       <button type="submit" name="appntid" value="<%= appnt_id %>" class=" btn btn-outline-primary">+</button>
     </form>
 </div>
+<!-- hiddennotes -->
+<div class="prescription centrtxt a5">
+
+
+<h3 style="color:#ff9f2e;text-decoration: underline;">Hidden Notes</h3>
+<%  newListItems6.forEach(function(item){ %>
+
+  <form action="/<%=appnt_id%>/dr/delete1" method="post">
+    <div class="item">
+      <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+      <p class="fntclr"><%=item.name%></p>
+    </div>
+    <input type="hidden" name="listName" value="<%= appnt_id %>"></input>
+  </form>
+<%  }) %>
+
+
+    <form class="item" action="/<%=appnt_id%>/dr/add1" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+      <button type="submit" name="appntid" value="<%= appnt_id %>" class=" btn btn-outline-primary">+</button>
+    </form>
+</div>
 
 <!-- <div class="item">
 

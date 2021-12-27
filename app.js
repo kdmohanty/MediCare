@@ -66,6 +66,10 @@ const userSchema1 = ({
   datea: { type: Date },
   items: [itemsSchema],
   prescription: [itemsSchema],
+  hiddennotes: [itemsSchema],
+  grphx:[String],
+  grphy:[String],
+
   weight:Number,
   height:Number,
   bloodpressure:String,
@@ -99,6 +103,9 @@ app.get("/registerdoc", function(req, res) {
 app.get("/vid", function(req, res) {
   res.render("index");
 });
+app.get("/logout", function(req, res){
+  res.redirect("/");
+});
 
 
 
@@ -123,6 +130,24 @@ const requestedPostId = req.params.postId;
   });
 
 });
+app.get("/:postId/graph",function(req,res){
+
+  const requestedPostId = req.params.postId;
+
+
+    Coder.findOne({_id: requestedPostId}, function(err, postMain){
+    if(postMain){  res.render("graph", {
+        appnt_id:requestedPostId,
+
+        grphx:postMain.grphx,
+        grphy:postMain.grphy,
+
+
+      });}
+    });
+
+
+});
 app.get("/:postId/dr", function(req, res){
 
 const requestedPostId = req.params.postId;
@@ -133,6 +158,8 @@ const requestedPostId = req.params.postId;
       appnt_id:requestedPostId,
       newListItems2 : postMain.items,
       newListItems4 : postMain.prescription,
+      newListItems6 : postMain.hiddennotes,
+
       weight : postMain.weight,
       height:postMain.height,
       bloodpressure:postMain.bloodpressure,
@@ -384,9 +411,19 @@ Coder.findByIdAndUpdate(requestedPostId, { height: heightname },  function(err,f
 app.post("/:postId/bloodpressure",function(req,res){
   const requestedPostId = req.params.postId;
   const bloodpressurename = req.body.updatebloodpressure ;
+  let today = new Date().toLocaleDateString()
+
+
 Coder.findByIdAndUpdate(requestedPostId, {bloodpressure:bloodpressurename  },  function(err,foundbloodpressure){
-  res.redirect("/" + requestedPostId);
+  // res.redirect("/" + requestedPostId);
 });
+Coder.findOne({_id: requestedPostId}, function(err, foundList){
+  if(foundList){  foundList.grphx.push(today);
+    foundList.grphy.push(bloodpressurename);
+    foundList.save();
+    res.redirect("/" + requestedPostId);
+  }});
+
 });
 app.post("/:postId/bloodpressure/dr",function(req,res){
   const requestedPostId = req.params.postId;
@@ -471,6 +508,39 @@ var apntid = req.params.postId;
 
 
       Coder.findOneAndUpdate({_id: requestedPostId}, {$pull: {prescription: {_id: checkedItemId}}}, function(err, foundList){
+        if (!err){
+          res.redirect("/" + requestedPostId + "/dr");
+        }
+      });
+
+
+
+  });
+  app.post("/:postId/dr/add1", function(req, res){
+
+    const requestedPostId = req.params.postId;
+
+    const itemName = req.body.newItem;
+
+    const item = new Item({
+      name: itemName
+    });
+
+
+      Coder.findOne({_id: requestedPostId}, function(err, foundList){
+        foundList.hiddennotes.push(item);
+        foundList.save();
+        res.redirect("/" + requestedPostId + "/dr");
+      });
+
+  });
+  app.post("/:postId/dr/delete1", function(req, res){
+    const requestedPostId = req.params.postId;
+    const checkedItemId = req.body.checkbox;
+
+
+
+      Coder.findOneAndUpdate({_id: requestedPostId}, {$pull: {hiddennotes: {_id: checkedItemId}}}, function(err, foundList){
         if (!err){
           res.redirect("/" + requestedPostId + "/dr");
         }
